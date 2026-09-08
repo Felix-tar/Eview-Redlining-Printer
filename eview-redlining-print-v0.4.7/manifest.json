@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "eVIEW Redlining Print Assistant",
+  "version": "0.4.7",
+  "description": "Filtert eVIEW-Redlinings nach Status und Auftragsrichtung und sammelt eindeutige Seiten für einen Druckauftrag.",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://eview.eplan.com/*",
+    "https://www.eview.eplan.com/*"
+  ],
+  "action": {
+    "default_title": "eVIEW Redlining drucken",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://eview.eplan.com/*",
+        "https://www.eview.eplan.com/*"
+      ],
+      "js": [
+        "src/page-hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://eview.eplan.com/*",
+        "https://www.eview.eplan.com/*"
+      ],
+      "js": [
+        "src/core.js",
+        "src/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

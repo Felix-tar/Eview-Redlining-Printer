@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>eVIEW Redlining Print</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <h1>Redlining-Druck</h1>
+    <p id="status" class="status">eVIEW wird geprüft …</p>
+
+    <section class="summary">
+      <div><strong id="detectedPages">0</strong><span>Seiten erkannt</span></div>
+      <div><strong id="captures">0</strong><span>Seiten erfasst</span></div>
+    </section>
+
+    <section class="filter-card">
+      <h2>Status im Suchlauf</h2>
+      <div class="status-grid">
+        <label><input type="checkbox" name="status" value="review" checked> Überprüfung</label>
+        <label><input type="checkbox" name="status" value="draft"> Entwurf</label>
+        <label><input type="checkbox" name="status" value="confirmed"> Bestätigt</label>
+        <label><input type="checkbox" name="status" value="completed"> Erledigt</label>
+        <label><input type="checkbox" name="status" value="rejected"> Abgelehnt</label>
+      </div>
+
+      <label class="switch-row"><input id="assignmentEnabled" type="checkbox" checked> Nach Auftragsvergabe filtern</label>
+      <div id="assignmentFields" class="assignment-grid disabled">
+        <label>Von
+          <select id="sourceDepartment">
+            <option value="ST" selected>ST – inkl. ST H / ST_…</option>
+            <option value="MOE">MoE – inkl. MoE_…</option>
+            <option value="MOM">MoM – inkl. MoM …</option>
+            <option value="MK">MK – mech. Konstruktion</option>
+            <option value="TPL">TPL</option>
+            <option value="SSB">SSB</option>
+            <option value="IB">IB</option>
+            <option value="ANY">Beliebig</option>
+          </select>
+        </label>
+        <label>An
+          <select id="targetDepartment">
+            <option value="MOE" selected>MoE – inkl. MoE_…</option>
+            <option value="MOM">MoM – inkl. MoM …</option>
+            <option value="ST">ST – inkl. ST H / ST_…</option>
+            <option value="MK">MK – mech. Konstruktion</option>
+            <option value="TPL">TPL</option>
+            <option value="SSB">SSB</option>
+            <option value="IB">IB</option>
+            <option value="ANY">Beliebig</option>
+          </select>
+        </label>
+      </div>
+      <label class="custom-label" for="customPatterns">Zusätzliche Schreibweisen (optional)</label>
+      <textarea id="customPatterns" rows="2" placeholder="z. B. ST H =&gt; MoE, ST-Rei-&gt;MoE"></textarea>
+      <p class="mini-hint">Unterstriche sowie nachgestellte Namens-/Teamkürzel werden ignoriert. Kommagetrennte Texte gelten zusätzlich als Treffer.</p>
+
+      <label class="custom-label" for="timingMode">Ladezeit / Internetverbindung</label>
+      <select id="timingMode">
+        <option value="fast">Schnell – kurze Wartezeiten</option>
+        <option value="normal" selected>Automatisch – empfohlen</option>
+        <option value="slow">Langsam / instabil – länger warten + Wiederholung</option>
+      </select>
+      <p class="mini-hint">„Automatisch“ wartet nur solange, bis der Viewer wirklich bereit ist. „Langsam“ wartet bei nicht geladenen Seiten deutlich länger und klickt das Redlining bei Bedarf erneut an.</p>
+    </section>
+
+    <button id="scan" class="primary">Gefilterte Redlining-Seiten erfassen</button>
+    <p class="hint">Die bisherige Erfassung wird dabei ersetzt. Mehrere Redlinings derselben Seite werden nur einmal gedruckt.</p>
+    <p class="shortcut-hint"><strong>Vollbild:</strong> <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> startet den Suchlauf mit den zuletzt gespeicherten Filtern.</p>
+
+    <details>
+      <summary>Diagnose und Test</summary>
+      <p>Öffne zuerst in eVIEW die Redlining-Übersicht und lade die Seite nach Installation einmal neu.</p>
+      <button id="export">Diagnose-Datei speichern</button>
+    </details>
+
+    <section id="pendingSection" class="pending-card" hidden>
+      <div class="pending-heading">
+        <h2>Nicht automatisch übernommen</h2>
+        <strong id="pendingCount">0</strong>
+      </div>
+      <p class="mini-hint">Unklare Schreibweisen und andere Auftragsrichtungen. Gewünschte Einträge markieren und hinzufügen.</p>
+      <div id="pendingList" class="pending-list"></div>
+      <button id="addPending">Markierte zum Druck hinzufügen</button>
+    </section>
+
+    <div class="action-grid">
+      <button id="capture">Aktuelle Seite hinzufügen</button>
+      <button id="clear" class="danger">Druckliste leeren</button>
+    </div>
+    <button id="print" disabled>Erfasste Seiten gemeinsam drucken</button>
+    <p id="version" class="version"></p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

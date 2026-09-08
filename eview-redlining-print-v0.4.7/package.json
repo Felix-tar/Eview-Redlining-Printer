@@ -1,0 +1,8 @@
+{
+  "name": "eview-redlining-print-assistant",
+  "private": true,
+  "version": "0.4.7",
+  "scripts": {
+    "test": "node test/core.test.js && node test/background.test.js && node test/content-static.test.js && node test/print-static.test.js && node test/manifest-static.test.js"
+  }
+}
