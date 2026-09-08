@@ -7,8 +7,8 @@ Die Erweiterung arbeitet innerhalb der bereits geöffneten eVIEW-Umgebung und be
 ## Microsoft Edge Add-ons
 
 **Microsoft Edge Add-ons Store:**  
-Der öffentliche Store-Link wird hier ergänzt, sobald die Erweiterung von Microsoft freigegeben wurde.
-
+[Der öffentliche Store-Link wird hier ergänzt, sobald die Erweiterung von Microsoft freigegeben wurde.
+](https://microsoftedge.microsoft.com/addons/detail/eview-redlining-print-ass/hamabngijkdkjibeaedpgpaflaakcdbm)
 ## Manuelle Installation in Microsoft Edge
 
 1. Dieses GitHub-Repository herunterladen:  
